@@ -75,15 +75,20 @@ def bot_turn(remaining_pencils, text=''):
     return to_take
 
 
+# ASK HOW MANY PENCILS WILL BE IN THE START OF THE GAME
 numberOfPencils = get_number("How many pencils would you like to use:\n")
+
+# Calculate the Loosing Positions based on the number given above
 loosing_numbers = [*range(1, numberOfPencils + 1, 4)]
+
+# Visualize with Red or Green The First Player will Lose or Win
 if numberOfPencils in loosing_numbers:
     print("🔴: ", end='')
 else:
     print("🟢: ", end='')
 
+# ASK WHO GOES FIRST
 who_goes_first = get_name(f"Who will be the first ({names[0]}, {names[1]}):\n")
-
 
 while True:
     # SIMPLE OUTPUT
@@ -91,16 +96,21 @@ while True:
 
     # COLORED OUTPUT (Visualize Win Strat)
     for i in range(numberOfPencils):
-        print(colored("|", "red") if i+1 in loosing_numbers else colored("|", "green"), end='')
+        print(colored("|", "red") if i + 1 in loosing_numbers else colored("|", "green"), end='')
     print(f"Pencils Left: {numberOfPencils})")
+
+    # CHECK IF IT IS BoT TURN OR NOT
     if who_goes_first == names[0]:
         x = pencils(numberOfPencils, f"{names[0] if who_goes_first == names[0] else names[1]}'s turn: \n")
     else:
         x = bot_turn(numberOfPencils, f"{names[0] if who_goes_first == names[0] else names[1]}'s turn:")
+
+    # CHANGE PLAYER
     who_goes_first = (names[1] if who_goes_first == names[0] else names[0])
+
+    # CHECK WINNER
     if x == numberOfPencils:
         print(f"{who_goes_first} won!")
         break
     else:
         numberOfPencils -= x
-
