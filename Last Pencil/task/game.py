@@ -2,8 +2,6 @@
 import random
 from termcolor import colored
 
-names = ["John", "BoT"]
-
 
 def get_number(text=''):
     try:
@@ -59,6 +57,21 @@ def bot_turn(remaining_pencils, text=''):
     :param text:
     :return:
     """
+    texts = ["I Will Crush You Down!!",
+             "You Ain't Winning That!!",
+             "Hey, I am Going to Win That Game, You Know That don't You?",
+             "I Am Pretty Sure You Are Lost",
+             "Haha, I See You Picking Random Pencils",
+             "Whoooooha, ha ha ha ha !!!",
+             "Watch And Learn Babe",
+             "Are You Sure You Want to Continue?, I am Winning Here!!",
+             "OMG That's an Easy and Fun Win",
+             "Win Win, o Yeah i still Win",
+             "Oups, My Turn, Time To Win Again, haha",
+             "I Just Love That ... Winning Style",
+             "I Can Keep Doing it All Day",
+             "You Can't Beat Me, You Know",
+             "I Thing You Just ... Love Loosing Games or smth?"]
     print(text)
     if remaining_pencils in loosing_numbers:
         print("BoT is Guessing and Picks: ", end='')
@@ -67,28 +80,31 @@ def bot_turn(remaining_pencils, text=''):
         else:
             to_take = 1
     else:
-        print("BoT is Sure and Takes: ", end='')
+        print(f"BoT Says: {random.choice(texts)}. I Will Take: ", end='')
         current_list = [*range(1, remaining_pencils, 4)]
         closest_loosing = current_list[-1]
         to_take = remaining_pencils - closest_loosing
     print(to_take)
     return to_take
 
+# Get Player Name
+names = ['BoT']
+names.append(input("Give Me Your Name: "))
 
-# ASK HOW MANY PENCILS WILL BE IN THE START OF THE GAME
-numberOfPencils = get_number("How many pencils would you like to use:\n")
+# Ask How Many Pencils Will Be In The Start Of The Game
+numberOfPencils = get_number("How many pencils would you like to use:")
 
-# Calculate the Loosing Positions based on the number given above
+# Calculate the Loosing Positions based on the number given above (1, 4, 9, 13 ...)
 loosing_numbers = [*range(1, numberOfPencils + 1, 4)]
 
-# Visualize with Red or Green The First Player will Lose or Win
+# Visualize if The First Player will (🔴)Lose or (🟢)Win
 if numberOfPencils in loosing_numbers:
     print("🔴: ", end='')
 else:
     print("🟢: ", end='')
 
-# ASK WHO GOES FIRST
-who_goes_first = get_name(f"Who will be the first ({names[0]}, {names[1]}):\n")
+# Ask Who Starts The Game
+players_turn = get_name(f"Who will be the first ({names[0]}, {names[1]}):")
 
 while True:
     # SIMPLE OUTPUT
@@ -97,20 +113,20 @@ while True:
     # COLORED OUTPUT (Visualize Win Strat)
     for i in range(numberOfPencils):
         print(colored("|", "red") if i + 1 in loosing_numbers else colored("|", "green"), end='')
-    print(f"Pencils Left: {numberOfPencils})")
+    print(f" : => ✏️Pencils Left: ({numberOfPencils})")
 
     # CHECK IF IT IS BoT TURN OR NOT
-    if who_goes_first == names[0]:
-        x = pencils(numberOfPencils, f"{names[0] if who_goes_first == names[0] else names[1]}'s turn: \n")
+    if players_turn == names[1]:
+        x = pencils(numberOfPencils, f"{names[1] if players_turn == names[1] else names[0]}'s turn: ")
     else:
-        x = bot_turn(numberOfPencils, f"{names[0] if who_goes_first == names[0] else names[1]}'s turn:")
+        x = bot_turn(numberOfPencils, f"{names[1] if players_turn == names[1] else names[0]}'s turn: ")
 
     # CHANGE PLAYER
-    who_goes_first = (names[1] if who_goes_first == names[0] else names[0])
+    players_turn = (names[1] if players_turn == names[0] else names[0])
 
     # CHECK WINNER
     if x == numberOfPencils:
-        print(f"{who_goes_first} won!")
+        print(f"{players_turn} won!")
         break
     else:
         numberOfPencils -= x
