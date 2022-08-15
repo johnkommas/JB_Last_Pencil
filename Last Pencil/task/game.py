@@ -37,7 +37,7 @@ def get_name(names, text=''):
     person = input(text)
     if person not in names:
         print(f"Choose between '{names[0]}' and '{names[1]}'")
-        return get_name()
+        return get_name(names)
     else:
         return person
 
