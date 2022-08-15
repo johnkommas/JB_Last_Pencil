@@ -1,9 +1,14 @@
 # 1.
 import random
 from termcolor import colored
-import time
+
 
 def get_number(text=''):
+    """
+
+    :param text:
+    :return:
+    """
     try:
         number = int(input(text))
         if number <= 0:
@@ -16,6 +21,7 @@ def get_number(text=''):
 
 
 def pencils(number_of_pencils, text=''):
+
     accepted = [1, 2, 3]
     try:
         player_input = int(input(text))
@@ -34,6 +40,12 @@ def pencils(number_of_pencils, text=''):
 
 
 def get_name(names, text=''):
+    """
+
+    :param names:
+    :param text:
+    :return:
+    """
     person = input(text)
     if person not in names:
         print(f"Choose between '{names[0]}' and '{names[1]}'")
@@ -53,6 +65,8 @@ def bot_turn(name, loosing_numbers, remaining_pencils, text=''):
     Αν όχι, τότε παίρνει ένα τυχαίο αριθμό στυλό 1, 2 ή 3
     ελπίζοντας ο αντίπαλος παίχτης να πάρει λάθος αριθμό.
 
+    :param loosing_numbers:
+    :param name:
     :param remaining_pencils:
     :param text:
     :return:
@@ -91,6 +105,10 @@ def bot_turn(name, loosing_numbers, remaining_pencils, text=''):
 
 
 def main():
+    """
+
+    :return:
+    """
     print("++++++++++++++ NEW GAME: ++++++++++++++")
     # Get Player Name
     names = ['BoT', input("Give Me Your Name: ")]
@@ -135,7 +153,8 @@ def main():
         elif players_turn == names[1]:
             x = pencils(numberOfPencils, f"{names[1] if players_turn == names[1] else names[0]}'s turn: ")
         else:
-            x = bot_turn(players_turn, loosing_numbers, numberOfPencils, f"{names[1] if players_turn == names[1] else names[0]}'s turn: ")
+            x = bot_turn(players_turn, loosing_numbers, numberOfPencils,
+                         f"{names[1] if players_turn == names[1] else names[0]}'s turn: ")
 
         # CHANGE PLAYER
         players_turn = (names[1] if players_turn == names[0] else names[0])
@@ -153,4 +172,3 @@ while True:
     if input("Continue: (Y) or (N): ").upper() == "N":
         print("GAME OVER")
         break
-
