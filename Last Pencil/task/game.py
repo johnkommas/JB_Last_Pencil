@@ -100,7 +100,7 @@ def main():
     # Calculate the Loosing Positions based on the number given above (1, 4, 9, 13 ...)
     loosing_numbers = [*range(1, numberOfPencils + 1, 4)]
 
-    # IF Players Name is HackMe then You Get A Visual Win
+    # IF Players Name is HackMe or HackBot then You Get A Visual Win
     version = 0
     if names[1].upper() == 'HACKME' or names[1].upper() == 'HACKBOT':
         version = 1
@@ -118,7 +118,7 @@ def main():
     while True:
 
         if version:
-            # COLORED OUTPUT (Visualize Win Strat) Enabled only if your name is HACKME
+            # COLORED OUTPUT (Visualize Win Strat) Enabled only if your name is HackMe or HackBot
             # To Win Just Count Green Pencils Until Red and Pick THEM.
             for i in range(numberOfPencils):
                 print(colored("|", "red") if i + 1 in loosing_numbers else colored("|", "green"), end='')
